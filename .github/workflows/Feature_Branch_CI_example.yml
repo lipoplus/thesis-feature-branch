@@ -1,0 +1,24 @@
+
+name: CI/CD
+
+on: [push]
+
+jobs:
+  development_evironment:
+    name: Development Enviroment
+    runs-on: ubuntu-latest    
+    steps:
+    # Clone of the code
+    - uses: actions/checkout@v1
+      name: Clone code  
+    - name: Linting
+      run: echo Linting code.
+    - uses: actions/setup-python@v2
+      name : Build
+    - name: Unit Testing
+      run: echo Run Unit testing
+    - uses: jannekem/run-python-script-action@v1
+      name : Run Code
+      with:
+       script: |
+              print("Hello World")

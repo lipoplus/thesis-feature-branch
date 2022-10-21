@@ -1,0 +1,110 @@
+
+name: CI/CD
+
+on: [push]
+
+jobs:
+  development_evironment:
+    name: Development Enviroment
+    runs-on: ubuntu-latest    
+    steps:
+    # Clone of the code
+    - uses: actions/checkout@v1
+      name: Clone code  
+    - name: Linting
+      run: echo Linting code.
+    - uses: actions/setup-python@v2
+      name : Build
+    - name: Unit Testing
+      run: echo Run Unit testing
+    - uses: jannekem/run-python-script-action@v1
+      name : Run Code
+      with:
+       script: |
+              print("Hello World")
+  deployment_integration:
+    name: Deploy in Integration Environment
+    needs: development_evironment
+    runs-on: ubuntu-latest
+    environment: 
+      name: integration
+      url: https://github.com
+    steps:
+      - name: Deploy in Integration
+        run: echo Coding is deployed
+  integration_enviroment:
+    name: Integration Environment
+    needs: deployment_integration
+    runs-on: ubuntu-latest    
+    steps:
+    - uses: actions/checkout@v1
+      name: Clone code 
+    - uses: jannekem/run-python-script-action@v1
+      name : Run Code
+      with:
+       script: |
+          print("Hello World")
+    - name: Integration Testing
+      run: echo Run Unit testing  
+  deployment_testing:
+    name: Deploy in Testing Environment
+    needs: integration_enviroment
+    runs-on: ubuntu-latest
+    environment: 
+      name: integration
+      url: https://github.com
+    steps:
+      - name: deploy
+        run: echo Coding is deployed 
+  testing_enviroment:
+    name: Testing Environment
+    needs: deployment_testing
+    runs-on: ubuntu-latest    
+    steps:
+    - uses: actions/checkout@v1
+      name: Clone code 
+    - uses: jannekem/run-python-script-action@v1
+      name : Run Code
+      with:
+       script: |
+         print("Hello World")
+    - name: Non-Functional Testing
+      run: echo Run Non-Functinal Testing
+    - name: Functional Testing
+      run: echo Run Functinal Testing
+  deployment_staging:
+    name: Deploy in Staging Environment
+    needs: testing_enviroment
+    runs-on: ubuntu-latest
+    environment: 
+      name: staging
+      url: https://github.com
+    steps:
+      - name: deploy
+        run: echo Coding is deployed   
+  staging_enviroment:
+    name: Staging Environment
+    needs: deployment_staging
+    runs-on: ubuntu-latest    
+    steps:
+    - uses: actions/checkout@v1
+      name: Clone code 
+    - uses: jannekem/run-python-script-action@v1
+      name : Run Code
+      with:
+       script: |
+          print("Hello World")
+    - name: Non-Functional Testing
+      run: echo Run Non-Functinal Testing
+    - name: Functional Testing
+      run: echo Run Functinal Testing
+  release:
+      name: Release in Production
+      needs: staging_enviroment
+      runs-on: ubuntu-latest
+      environment: 
+        name: Prodution 
+        url: https://github.com
+      steps:
+        - name: Run Code in Production
+          run: echo Coding is deployed
