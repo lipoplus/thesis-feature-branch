@@ -10,7 +10,6 @@ on:
 jobs:
   integration_enviroment:
     name: Integration Environment
-    needs: deployment_integration
     runs-on: ubuntu-latest    
     steps:
     - uses: actions/checkout@v1
