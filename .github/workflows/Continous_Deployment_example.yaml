@@ -1,10 +1,10 @@
 
-name: CD
+name: Continous Deployment Pipeline
 on:
-  # runs on pushes to the main branch
+  # This Definition sets the trigger of the CD pipeline only when the code is pushed to the mainline 
   push:
     branches: [main]
-  # also runs inside pull requests that target the main branch
+  # and also when the pull request is approved and, the code merged in the mainline
   pull_request:
     branches: [main]
 jobs:

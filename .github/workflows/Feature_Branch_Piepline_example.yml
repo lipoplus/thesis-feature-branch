@@ -1,11 +1,10 @@
 
-name: CI
-
+name: Feature Pipeline
 on:
+# This Definition sets the trigger of the CI pipeline only when the code is pushed to the feature branch
   push:
     branches:
       - feature/**
-
 jobs:
   development_evironment:
     name: Development Enviroment
@@ -23,6 +22,7 @@ jobs:
     - uses: jannekem/run-python-script-action@v1
       name : Run Code
       with:
+      # This is a simple python script that prints in the console the values present inside the function print()
        script: |
               print("Hello World")
-              print("Hello Feature 2")
+              print("Hello Feature 1")
