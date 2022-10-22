@@ -77,6 +77,8 @@ jobs:
       name: Release in Production
       needs: staging_enviroment
       runs-on: ubuntu-latest
+      # Using the environment tag, we can configure the place where the code will be deployed
+      # and the need for permissions to approve the Releases/Deployment of the code in the environment
       environment: 
         name: Prodution 
         url: https://github.com
