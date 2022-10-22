@@ -25,4 +25,4 @@ jobs:
       with:
        script: |
               print("Hello World")
-              print("Hello Feature 1")
+              print("Hello Feature 2")
