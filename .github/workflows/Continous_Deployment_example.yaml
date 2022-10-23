@@ -10,6 +10,9 @@ on:
 jobs:
   integration_enviroment:
     name: Integration Environment
+    environment: 
+      name: integration
+      url: https://github.com
     runs-on: ubuntu-latest    
     steps:
     - uses: actions/checkout@v1
@@ -32,7 +35,7 @@ jobs:
     needs: integration_enviroment
     runs-on: ubuntu-latest
     environment: 
-      name: integration
+      name: testing
       url: https://github.com
     steps:
       - name: deploy
@@ -40,6 +43,9 @@ jobs:
   testing_enviroment:
     name: Testing Environment
     needs: deployment_testing
+    environment: 
+      name: testing
+      url: https://github.com
     runs-on: ubuntu-latest    
     steps:
     - uses: actions/checkout@v1
@@ -66,6 +72,9 @@ jobs:
   staging_enviroment:
     name: Staging Environment
     needs: deployment_staging
+    environment: 
+      name: staging
+      url: https://github.com
     runs-on: ubuntu-latest    
     steps:
     - uses: actions/checkout@v1
@@ -86,7 +95,7 @@ jobs:
       # Using the environment tag, we can configure the place where the code will be deployed
       # and the need for permissions to approve the Releases/Deployment of the code in the environment
       environment: 
-        name: Prodution 
+        name: prodution 
         url: https://github.com
       steps:
         - name: Run Code in Production
